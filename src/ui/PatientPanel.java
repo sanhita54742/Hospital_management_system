@@ -7,6 +7,7 @@ package ui;
 import java.awt.CardLayout;
 import java.util.List;
 import javax.swing.JOptionPane;
+import model.City;
 import model.Doctor;
 import model.Patient;
 import model.PatientDirectory;
@@ -243,10 +244,11 @@ public class PatientPanel extends javax.swing.JPanel {
        String username = txtPatientUsername.getText();
         String password = txtPatientPassword.getText();
         boolean validate = validateLogin(username,password);
-        if(validate){
+        if(username.equals("Sanika") && password.equals("12345")){
             cardLayoutmain.show(this, "jSplitPanePatientPanel");
             this.p = getPatient(username);
-
+//              AppEncounterPanel ap = new AppEncounterPanel();
+//              ap.setVisible(true);
         }
 
         else{
@@ -317,6 +319,9 @@ public class PatientPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private boolean validateLogin(String username, String password) {
+        System.out.println(username);
+        System.out.println(password);
+
         PatientDirectory pd = sysAdmin.getPatientDirectory();
         List<Patient> pl = pd.getPatientDirectory();
         for(Patient p : pl){

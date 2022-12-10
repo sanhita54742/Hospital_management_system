@@ -213,11 +213,10 @@ public class ViewHospitalPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblHospitalName)
                             .addComponent(txtHospitalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(57, 57, 57))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtHospitalPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblHospitalphoneNumber)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblHospitalphoneNumber)
+                        .addGap(21, 21, 21))
+                    .addComponent(txtHospitalPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxHospitalCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblHospitalCommunity))
@@ -231,15 +230,24 @@ public class ViewHospitalPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         
-        Community c = (Community) jComboBoxHospitalCommunity.getSelectedItem();
+         Community c = (Community) jComboBoxHospitalCommunity.getSelectedItem();
         if(c==null || txtHospitalName.getText().length()==0 || txtHospitalPhone.getText().length()==0){
             JOptionPane.showMessageDialog(this, "Enter All fields");
             return;
         }
-        Hospital h = sysAdmin.getHospitalDirectory().getHospital(txtHospitalId.getText());
-        h.setHospitalName(String.valueOf(txtHospitalName.getText()));
-        h.setPhoneNumber(String.valueOf(txtHospitalPhone.getText()));
-        
+        //Hospital h = sysAdmin.getHospitalDirectory().getHospital(txtHospitalId.getText());
+        //h.setHospitalName(String.valueOf(txtHospitalName.getText()));
+        //h.setPhoneNumber(String.valueOf(txtHospitalPhone.getText()));
+        HospitalDirectory h = sysAdmin.getHospitalDirectory();
+        List<Hospital> hospitals = h.getHospitalDirectory();
+        for(Hospital ho : hospitals){
+            if (ho.getHospitalId().equals(txtHospitalId.getText())){
+                ho.setHospitalName(String.valueOf(txtHospitalName.getText()));
+                 ho.setPhoneNumber(String.valueOf(txtHospitalPhone.getText()));
+
+            }
+            
+        }
         JOptionPane.showMessageDialog(this, "Hospital Info Updated");
         
         txtHospitalId.setText("");
@@ -247,7 +255,7 @@ public class ViewHospitalPanel extends javax.swing.JPanel {
         txtHospitalPhone.setText("");
         jComboBoxHospitalCommunity.setSelectedItem(null);
         populateTable();
-        
+                                             
 
     }//GEN-LAST:event_btnSaveHospitalActionPerformed
 
